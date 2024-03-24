@@ -35,4 +35,4 @@ sd.resolution = (1200, 600)
 #     bubbles(point, 5)
 #
 
-sd.pause()
+# sd.pause()
