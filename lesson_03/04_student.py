@@ -17,5 +17,5 @@ while educational_grant < expenses:
         expenses += expenses * 0.03
         full_expenses += expenses
     educational_grant = educational_grant * 10
-    result = round(educational_grant + full_expenses, 2)
+    result = round(full_expenses - educational_grant, 2)
 print(f'Студенту надо попросить {result} рублей')
