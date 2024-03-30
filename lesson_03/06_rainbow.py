@@ -31,19 +31,32 @@ rainbow_colors = (sd.COLOR_RED, sd.COLOR_ORANGE, sd.COLOR_YELLOW, sd.COLOR_GREEN
 # end_point = sd.get_point(380, 450)
 # line = sd.line(start_point, end_point, color = sd.COLOR_PURPLE, width = 4)
 
-def lines(color):
-    for x in range(5, 36, 5):
-        start_point = sd.get_point(50 + x, 50)
-        end_point = sd.get_point(350 + x, 450)
-        sd.line(start_point=start_point, end_point=end_point, color=color, width=2)
+# for x in range(5, 36, 5):
+#     start_point = sd.get_point(50 + x, 50)
+#     end_point = sd.get_point(350 + x, 450)
+#     for color in rainbow_colors:
+#         sd.line(start_point=start_point, end_point=end_point, color=color, width=3)
+#
 
-
-for c in rainbow_colors:
-    print(c)
+# x_1 = 50
+# x_2 = 350
+#
+# for color in rainbow_colors:
+#     start_point = sd.get_point(x_1, 50)
+#     end_point = sd.get_point(x_2, 450)
+#     sd.line(start_point=start_point, end_point=end_point, color=color, width=3)
+#     x_1 += 5
+#     x_2 += 5
 
 # Усложненное задание, делать по желанию.
 # Нарисовать радугу дугами от окружности (cсм sd.circle) за нижним краем экрана,
 # поэкспериментировать с параметрами, что бы было красиво
-# TODO здесь ваш код
 
-sd.pause()
+# radius = 400
+#
+# for color in rainbow_colors:
+#     point = sd.get_point(500, -50)
+#     sd.circle(center_position=point, radius=radius, color=color, width=15)
+#     radius += 15
+#
+# sd.pausec
