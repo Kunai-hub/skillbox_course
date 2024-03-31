@@ -16,24 +16,35 @@ import simple_draw as sd
 
 print('Возможные цвета:\n0 : RED\n1 : ORAGNE\n2 : YELLOW\n3 : GREEN\n4 : CYAN\n5 : BLUE\n6 : PURPLE')
 
-user_input = int(input('Введите желаемый цвет: '))
 
-if user_input == 0:
-    color = sd.COLOR_RED
-elif user_input == 1:
-    color = sd.COLOR_ORANGE
-elif user_input == 2:
-    color = sd.COLOR_YELLOW
-elif user_input == 3:
-    color = sd.COLOR_GREEN
-elif user_input == 4:
-    color = sd.COLOR_CYAN
-elif user_input == 5:
-    color = sd.COLOR_BLUE
-elif user_input == 6:
-    color = sd.COLOR_PURPLE
-else:
-    print('Вы ввели некорректный номер цвета!\nПопробуйте ещё раз!')
+_ = True
+
+
+while _:
+    user_input = int(input('Введите желаемый цвет: '))
+    if user_input == 0:
+        color = sd.COLOR_RED
+        _ = False
+    elif user_input == 1:
+        color = sd.COLOR_ORANGE
+        _ = False
+    elif user_input == 2:
+        color = sd.COLOR_YELLOW
+        _ = False
+    elif user_input == 3:
+        color = sd.COLOR_GREEN
+        _ = False
+    elif user_input == 4:
+        color = sd.COLOR_CYAN
+        _ = False
+    elif user_input == 5:
+        color = sd.COLOR_BLUE
+        _ = False
+    elif user_input == 6:
+        color = sd.COLOR_PURPLE
+        _ = False
+    else:
+        print('Вы ввели некорректный номер цвета!\nПопробуйте ещё раз!')
 
 
 def draw_vector(point, angle, n):
