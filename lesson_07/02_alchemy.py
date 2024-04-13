@@ -19,7 +19,86 @@
 #   print(Water(), '+', Air(), '=', Water() + Air())
 #   print(Fire(), '+', Air(), '=', Fire() + Air())
 
-# TODO здесь ваш код
+
+class Water:
+
+    def __init__(self):
+        self.name = 'Вода'
+
+    def __str__(self):
+        return self.name
+
+    def __add__(self, other):
+        if other.name == 'Воздух':
+            return 'Шторм'
+        elif other.name == 'Огонь':
+            return 'Пар'
+        elif other.name == 'Земля':
+            return 'Грязь'
+        else:
+            return None
+
+
+class Air:
+
+    def __init__(self):
+        self.name = 'Воздух'
+
+    def __str__(self):
+        return self.name
+
+    def __add__(self, other):
+        if other.name == 'Огонь':
+            return 'Молния'
+        elif other.name == 'Земля':
+            return 'Пыль'
+        elif other.name == 'Вода':
+            return 'Шторм'
+        else:
+            return None
+
+
+class Fire:
+
+    def __init__(self):
+        self.name = 'Огонь'
+
+    def __str__(self):
+        return self.name
+
+    def __add__(self, other):
+        if other.name == 'Земля':
+            return 'Лава'
+        elif other.name == 'Вода':
+            return 'Пар'
+        elif other.name == 'Воздух':
+            return 'Молния'
+        else:
+            return None
+
+
+class Earth:
+
+    def __init__(self):
+        self.name = 'Земля'
+
+    def __str__(self):
+        return self.name
+
+    def __add__(self, other):
+        if other.name == 'Огонь':
+            return 'Лава'
+        elif other.name == 'Вода':
+            return 'Грязь'
+        elif other.name == 'Воздух':
+            return 'Пыль'
+        else:
+            return None
+
+
+print(Water(), '+', Air(), '=', Water() + Air())
+print(Fire(), '+', Air(), '=', Fire() + Air())
+print(Earth(), '+', Air(), '=', Earth() + Air())
 
 # Усложненное задание (делать по желанию)
 # Добавить еще элемент в игру.
