@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from termcolor import cprint
 from random import randint
 
 ######################################################## Часть первая
@@ -45,13 +44,40 @@ from random import randint
 class House:
 
     def __init__(self):
-        pass
+        self.money = 100
+        self.food = 50
+        self.mud = 0
+
+    def __str__(self):
+        print(
+            f'В доме на данный момент: денег {self.money} в тумбочке, еды {self.food} в холодильнике и {self.mud} грязи'
+        )
 
 
-class Husband:
+class People:
 
-    def __init__(self):
-        pass
+    def __init__(self, name):
+        self.name = name
+        self.fullness = 30
+        self.happiness = 100
+        self.house = None
+
+    def __str__(self):
+        return f'Меня зовут {self.name}, степень сытости {self.fullness}, степень счастья {self.fullness}!'
+    def eat(self):
+        amount_of_food = randint(10, 30)
+        if 10 <= self.house.food <= 30:
+            self.fullness += amount_of_food
+            self.house.food -= amount_of_food
+            print(f'{self.name} поел')
+        else:
+            print('В доме нет еды')
+
+
+class Husband(People):
+
+    def __init__(self, name):
+        super().__init__(name=name)
 
     def __str__(self):
         return super().__str__()
@@ -95,17 +121,17 @@ class Wife:
 
 home = House()
 serge = Husband(name='Сережа')
-masha = Wife(name='Маша')
+print(serge)
+# masha = Wife(name='Маша')
 
-for day in range(365):
-    cprint('================== День {} =================='.format(day), color='red')
-    serge.act()
-    masha.act()
-    cprint(serge, color='cyan')
-    cprint(masha, color='cyan')
-    cprint(home, color='cyan')
-
-# TODO после реализации первой части - отдать на проверку учителю
+# for day in range(365):
+#     print('================== День {} =================='.format(day))
+#     serge.act()
+#     masha.act()
+#     print(serge)
+#     print(masha)
+#     print(home)
+# # TODO после реализации первой части - отдать на проверку учителю
 
 ######################################################## Часть вторая
 #
@@ -189,22 +215,22 @@ class Child:
 # отправить на проверку учителем.
 
 
-home = House()
-serge = Husband(name='Сережа')
-masha = Wife(name='Маша')
-kolya = Child(name='Коля')
-murzik = Cat(name='Мурзик')
-
-for day in range(365):
-    cprint('================== День {} =================='.format(day), color='red')
-    serge.act()
-    masha.act()
-    kolya.act()
-    murzik.act()
-    cprint(serge, color='cyan')
-    cprint(masha, color='cyan')
-    cprint(kolya, color='cyan')
-    cprint(murzik, color='cyan')
+# home = House()
+# serge = Husband(name='Сережа')
+# masha = Wife(name='Маша')
+# kolya = Child(name='Коля')
+# murzik = Cat(name='Мурзик')
+#
+# for day in range(365):
+#     print('================== День {} =================='.format(day))
+#     serge.act()
+#     masha.act()
+#     kolya.act()
+#     murzik.act()
+#     print(serge)
+#     print(masha)
+#     print(kolya)
+#     print(murzik)
 
 
 # Усложненное задание (делать по желанию)
