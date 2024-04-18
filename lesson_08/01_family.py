@@ -169,7 +169,6 @@ from random import randint
 #             return
 #         if self.house.mud >= 90:
 #             self.happiness -= 10
-#         self.house.mud += 10
 #         dice = randint(1, 4)
 #         if self.fullness <= 30:
 #             self.eat()
@@ -228,6 +227,250 @@ from random import randint
 #
 # Если кот дерет обои, то грязи становится больше на 5 пунктов
 
+# class House:
+#
+#     def __init__(self):
+#         self.money = 100
+#         self.food = 50
+#         self.mud = 0
+#         self.cat_food = 30
+#
+#     def __str__(self):
+#         return (f'В доме на данный момент: денег {self.money} в тумбочке, еды в холодильнике {self.food}, грязи '
+#                 f'{self.mud}, корма для кота {self.cat_food}')
+#
+#
+# class People:
+#     total_food = 0
+#     total_money = 0
+#     total_fur_coat = 0
+#
+#     def __init__(self, name, house):
+#         self.name = name
+#         self.fullness = 30
+#         self.happiness = 100
+#         self.house = house
+#
+#     def __str__(self):
+#         return f'Меня зовут {self.name}, степень сытости {self.fullness}, степень счастья {self.happiness}!'
+#
+#     def eat(self):
+#         amount_of_food = randint(10, 30)
+#         if self.house.food > amount_of_food:
+#             self.fullness += amount_of_food
+#             self.house.food -= amount_of_food
+#             People.total_food += amount_of_food
+#             print(f'{self.name} поел(а)')
+#         else:
+#             print('В доме нет еды')
+#             if self.fullness >= 10:
+#                 self.fullness -= 10
+#             else:
+#                 self.fullness -= self.fullness
+#
+#     def pet_the_cat(self):
+#         print(f'{self.name} гладит кота')
+#         self.happiness += 5
+#         self.fullness -= 10
+#
+#
+# class Husband(People):
+#
+#     def __init__(self, name, house):
+#         super().__init__(name=name, house=house)
+#
+#     def __str__(self):
+#         return super().__str__()
+#
+#     def work(self):
+#         print(f'{self.name} пошёл на работу')
+#         self.fullness -= 10
+#         self.house.money += 150
+#         People.total_money += 150
+#
+#     def gaming(self):
+#         print(f'{self.name} играет в WOT!')
+#         self.fullness -= 10
+#         self.happiness += 20
+#
+#     def act(self):
+#         if self.fullness <= 0:
+#             print(f'{self.name} умер...')
+#             return
+#         if self.happiness <= 10:
+#             print(f'{self.name} умер...')
+#             return
+#         if self.house.mud >= 90:
+#             self.happiness -= 10
+#         self.house.mud += 10
+#         dice = randint(1, 4)
+#         if self.fullness < 30:
+#             self.eat()
+#         elif self.house.money < 100:
+#             self.work()
+#         elif self.happiness <= 20:
+#             self.gaming()
+#         elif dice == 1:
+#             self.work()
+#         elif dice == 2:
+#             self.gaming()
+#         else:
+#             self.pet_the_cat()
+#
+#
+# class Wife(People):
+#
+#     def __init__(self, name, house):
+#         super().__init__(name=name, house=house)
+#
+#     def __str__(self):
+#         return super().__str__()
+#
+#     def shopping(self):
+#         amount_of_food = randint(80, 120)
+#         if self.house.money >= amount_of_food:
+#             print(f'{self.name} пошла в магазин за продуктами')
+#             self.fullness -= 10
+#             self.house.food += amount_of_food
+#             self.house.money -= amount_of_food
+#         else:
+#             print('Денег нет на покупку продуктов')
+#
+#     def cat_shopping(self):
+#         if self.house.money >= 50:
+#             print(f'{self.name} пошла в магазин за кормом коту')
+#             self.fullness -= 10
+#             self.house.cat_food += 50
+#             self.house.money -= 50
+#         else:
+#             print('Денег нет на покупку продуктов')
+#
+#     def buy_fur_coat(self):
+#         if self.house.money > 350:
+#             print(f'{self.name} пошла в магазин за шубой!')
+#             self.fullness -= 10
+#             self.happiness += 100
+#             self.house.money -= 350
+#             People.total_fur_coat += 1
+#         else:
+#             print('Денег нет на покупку шубы')
+#
+#     def clean_house(self):
+#         if self.house.mud == 0:
+#             print('Уборка не требуется')
+#         elif self.house.mud < 100:
+#             print(f'{self.name} убирает в доме')
+#             self.house.mud -= self.house.mud
+#             self.fullness -= 10
+#         else:
+#             print(f'{self.name} убирает в доме')
+#             self.house.mud -= 100
+#             self.fullness -= 10
+#
+#     def act(self):
+#         if self.fullness <= 0:
+#             print(f'{self.name} умер...')
+#             return
+#         if self.happiness <= 10:
+#             print(f'{self.name} умер...')
+#             return
+#         if self.house.mud >= 90:
+#             self.happiness -= 10
+#         dice = randint(1, 4)
+#         if self.fullness < 30:
+#             self.eat()
+#         elif self.house.food < 50:
+#             self.shopping()
+#         elif self.house.cat_food < 20:
+#             self.cat_shopping()
+#         elif self.house.mud > 90:
+#             self.clean_house()
+#         elif self.house.money > 350:
+#             self.buy_fur_coat()
+#         elif self.happiness <= 20:
+#             self.pet_the_cat()
+#         elif dice == 1:
+#             self.shopping()
+#         elif dice == 2:
+#             self.cat_shopping()
+#         else:
+#             self.pet_the_cat()
+#
+#
+# class Cat:
+#     total_cat_food = 0
+#
+#     def __init__(self, name, house):
+#         self.name = name
+#         self.cat_fullness = 30
+#         self.house = house
+#
+#     def __str__(self):
+#         return f'Кот по кличке {self.name}, степень сытности {self.cat_fullness}'
+#
+#     def eat(self):
+#         if self.house.cat_food >= 10:
+#             print(f'Кот {self.name} поел')
+#             self.cat_fullness += 20
+#             self.house.cat_food -= 10
+#             Cat.total_cat_food += 10
+#         else:
+#             print('Нет корма для кота')
+#
+#     def sleep(self):
+#         print(f'Кот {self.name} спит')
+#         self.cat_fullness -= 10
+#
+#     def peel_off_wallpaper(self):
+#         print(f'Кот {self.name} дерет обои!')
+#         self.cat_fullness -= 10
+#         self.house.mud += 5
+#
+#     def act(self):
+#         if self.cat_fullness <= 0:
+#             print(f'Кот {self.name} умер...')
+#             return
+#         dice = randint(1, 4)
+#         if self.cat_fullness <= 20:
+#             self.eat()
+#         elif dice == 1:
+#             self.sleep()
+#         else:
+#             self.peel_off_wallpaper()
+#
+#
+# home = House()
+# serge = Husband(name='Сережа', house=home)
+# masha = Wife(name='Маша', house=home)
+# murzik = Cat(name='Мурзик', house=home)
+#
+# for day in range(1, 366):
+#     print('================== День {} =================='.format(day))
+#     serge.act()
+#     masha.act()
+#     murzik.act()
+#     print(serge)
+#     print(masha)
+#     print(murzik)
+#     print(home)
+# print('\n')
+# print(f'Еды съедено: {People.total_food}')
+# print(f'Денег заработано: {People.total_money}')
+# print(f'Шуб куплено: {People.total_fur_coat}')
+# print(f'Корма для кота съедено: {Cat.total_cat_food}')
+
+
+######################################################## Часть вторая бис
+#
+# После реализации первой части надо в ветке мастер продолжить работу над семьей - добавить ребенка
+#
+# Ребенок может:
+#   есть,
+#   спать,
+#
+# отличия от взрослых - кушает максимум 10 единиц еды,
+# степень счастья  - не меняется, всегда == 100 ;)
+
 class House:
 
     def __init__(self):
@@ -256,7 +499,7 @@ class People:
         return f'Меня зовут {self.name}, степень сытости {self.fullness}, степень счастья {self.happiness}!'
 
     def eat(self):
-        amount_of_food = randint(10, 30)
+        amount_of_food = randint(10, 20)
         if self.house.food > amount_of_food:
             self.fullness += amount_of_food
             self.house.food -= amount_of_food
@@ -264,10 +507,15 @@ class People:
             print(f'{self.name} поел(а)')
         else:
             print('В доме нет еды')
+            if self.fullness >= 10:
+                self.fullness -= 10
+            else:
+                self.fullness -= self.fullness
 
     def pet_the_cat(self):
         print(f'{self.name} гладит кота')
         self.happiness += 5
+        self.fullness -= 10
 
 
 class Husband(People):
@@ -278,14 +526,11 @@ class Husband(People):
     def __str__(self):
         return super().__str__()
 
-    # def eat(self):
-    #     pass
-
     def work(self):
         print(f'{self.name} пошёл на работу')
         self.fullness -= 10
-        self.house.money += 150
-        People.total_money += 150
+        self.house.money += 200
+        People.total_money += 200
 
     def gaming(self):
         print(f'{self.name} играет в WOT!')
@@ -303,9 +548,9 @@ class Husband(People):
             self.happiness -= 10
         self.house.mud += 10
         dice = randint(1, 4)
-        if self.fullness <= 30:
+        if self.fullness < 30:
             self.eat()
-        elif self.house.money <= 50:
+        elif self.house.money < 80:
             self.work()
         elif self.happiness <= 20:
             self.gaming()
@@ -326,7 +571,7 @@ class Wife(People):
         return super().__str__()
 
     def shopping(self):
-        amount_of_food = randint(40, 60)
+        amount_of_food = randint(50, 100)
         if self.house.money >= amount_of_food:
             print(f'{self.name} пошла в магазин за продуктами')
             self.fullness -= 10
@@ -345,10 +590,10 @@ class Wife(People):
             print('Денег нет на покупку продуктов')
 
     def buy_fur_coat(self):
-        if self.house.money >= 350:
+        if self.house.money > 350:
             print(f'{self.name} пошла в магазин за шубой!')
             self.fullness -= 10
-            self.happiness += 60
+            self.happiness += 100
             self.house.money -= 350
             People.total_fur_coat += 1
         else:
@@ -375,13 +620,12 @@ class Wife(People):
             return
         if self.house.mud >= 90:
             self.happiness -= 10
-        self.house.mud += 10
         dice = randint(1, 4)
-        if self.fullness <= 30:
+        if self.fullness < 30:
             self.eat()
-        elif self.house.food <= 50:
+        elif self.house.food < 50:
             self.shopping()
-        elif self.house.cat_food <= 20:
+        elif self.house.cat_food < 20:
             self.cat_shopping()
         elif self.house.mud > 90:
             self.clean_house()
@@ -416,6 +660,7 @@ class Cat:
             Cat.total_cat_food += 10
         else:
             print('Нет корма для кота')
+            self.cat_fullness -= 10
 
     def sleep(self):
         print(f'Кот {self.name} спит')
@@ -439,19 +684,57 @@ class Cat:
             self.peel_off_wallpaper()
 
 
+class Child(People):
+
+    def __init__(self, name, house):
+        super().__init__(name=name, house=house)
+
+    def __str__(self):
+        return super().__str__()
+
+    def eat(self):
+        if self.house.food > 10:
+            print(f'Ребенок {self.name} поел')
+            self.house.food -= 10
+            self.fullness += 10
+            People.total_food += 10
+        else:
+            print('В доме нет еды')
+            self.fullness -= 10
+
+    def sleep(self):
+        print(f'Ребенок {self.name} спит')
+        self.fullness -= 10
+
+    def act(self):
+        if self.fullness <= 0:
+            print(f'{self.name} умер...')
+            return
+        dice = randint(1, 3)
+        if self.fullness < 20:
+            self.eat()
+        elif dice == 1:
+            self.sleep()
+        else:
+            self.eat()
+
+
 home = House()
 serge = Husband(name='Сережа', house=home)
 masha = Wife(name='Маша', house=home)
 murzik = Cat(name='Мурзик', house=home)
+kolya = Child(name='Коля', house=home)
 
 for day in range(1, 366):
     print('================== День {} =================='.format(day))
     serge.act()
     masha.act()
     murzik.act()
+    kolya.act()
     print(serge)
     print(masha)
     print(murzik)
+    print(kolya)
     print(home)
 print('\n')
 print(f'Еды съедено: {People.total_food}')
@@ -460,61 +743,11 @@ print(f'Шуб куплено: {People.total_fur_coat}')
 print(f'Корма для кота съедено: {Cat.total_cat_food}')
 
 
-######################################################## Часть вторая бис
-#
-# После реализации первой части надо в ветке мастер продолжить работу над семьей - добавить ребенка
-#
-# Ребенок может:
-#   есть,
-#   спать,
-#
-# отличия от взрослых - кушает максимум 10 единиц еды,
-# степень счастья  - не меняется, всегда ==100 ;)
-
-class Child:
-
-    def __init__(self):
-        pass
-
-    def __str__(self):
-        return super().__str__()
-
-    def act(self):
-        pass
-
-    def eat(self):
-        pass
-
-    def sleep(self):
-        pass
-
-
-# TODO после реализации второй части - отдать на проверку учителем две ветки
-
-
 ######################################################## Часть третья
 #
 # после подтверждения учителем второй части (обоих веток)
 # влить в мастер все коммиты из ветки develop и разрешить все конфликты
 # отправить на проверку учителем.
-
-
-# home = House()
-# serge = Husband(name='Сережа')
-# masha = Wife(name='Маша')
-# kolya = Child(name='Коля')
-# murzik = Cat(name='Мурзик')
-#
-# for day in range(365):
-#     print('================== День {} =================='.format(day))
-#     serge.act()
-#     masha.act()
-#     kolya.act()
-#     murzik.act()
-#     print(serge)
-#     print(masha)
-#     print(kolya)
-#     print(murzik)
 
 
 # Усложненное задание (делать по желанию)
