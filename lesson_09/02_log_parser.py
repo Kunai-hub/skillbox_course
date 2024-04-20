@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from pprint import pprint
 
 # Имеется файл events.txt вида:
 #
@@ -19,7 +20,24 @@
 # Входные параметры: файл для анализа, файл результата
 # Требования к коду: он должен быть готовым к расширению функциональности. Делать сразу на классах.
 
-# TODO здесь ваш код
+total = 1
+
+
+with open(file='events.txt', mode='r') as file:
+    for line in file:
+        norm_line = line[:17] + ']'
+        nok = line[-4]
+        if nok == 'N':
+            print(norm_line + ' ' + str(total))
+            total += 1
+            # for minute in range(10):
+            #     if str(minute) == norm_line[-2]:
+            #         print(norm_line)
+            #     else:
+            #         pass
+        else:
+            pass
+
 
 # После выполнения первого этапа нужно сделать группировку событий
 #  - по часам
