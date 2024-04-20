@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import zipfile
-from pprint import pprint
 
 # Подсчитать статистику по буквам в романе Война и Мир.
 # Входные параметры: файл для сканирования
@@ -23,42 +22,58 @@ from pprint import pprint
 # Упорядочивание по частоте - по убыванию. Ширину таблицы подберите по своему вкусу
 # Требования к коду: он должен быть готовым к расширению функциональности. Делать сразу на классах.
 
-# file_name = 'C:\\Users\\neni2\PycharmProjects\\Kirill\kunai\lesson_09\\python_snippets\\voyna-i-mir.txt.zip'
-# file_zip = zipfile.ZipFile(file=file_name, mode='r')
-#
-# for file_txt in file_zip.namelist():
-#     file_zip.extract(file_txt)
+class Statistic:
 
-file_name = 'voyna-i-mir.txt'
+    def __init__(self, file_name):
+        self.file_name = file_name
+        self.stat = {}
 
-stat = {}
+    def unzip(self):
+        file_zip = zipfile.ZipFile(file=self.file_name, mode='r')
+        for file_txt in file_zip.namelist():
+            file_zip.extract(file_txt)
+        self.file_name = file_txt
 
-with open(file=file_name, mode='r', encoding='cp1251') as file:
-    for line in file:
+    def stat_collection(self):
+        if self.file_name.endswith('.zip'):
+            self.unzip()
+        with open(file=self.file_name, mode='r', encoding='cp1251') as file:
+            for line in file:
+                self._char_check(line=line)
+
+    def _char_check(self, line):
         for char in line:
             if char.isalpha():
-                if char in stat:
-                    stat[char] += 1
+                if char in self.stat:
+                    self.stat[char] += 1
                 else:
-                    stat[char] = 1
+                    self.stat[char] = 1
             else:
                 pass
 
+    def stat_print(self):
+        letter = 'Буква'
+        hertz = 'Частота'
+        plus = '+'
+        pipe = '|'
+        total = 'Итого'
 
-letter = 'Буква'
-hertz = 'Частота'
-plus = '+'
-pipe = '|'
-total = 'Итого'
-print(f'{plus}{plus:-^28}{plus}')
-print(f'{pipe}{letter:^12}{pipe:^4}{hertz:^12}{pipe}')
-print(f'{plus}{plus:-^28}{plus}')
-sorted_hertz = sorted(stat.items(), key=lambda x: x[1], reverse=True)
-for char, count in sorted_hertz:
-    print(f'{pipe}{char:^12}{pipe:^4}{count:^12}{pipe}')
-print(f'{plus}{plus:-^28}{plus}')
-print(f'{pipe}{total:^12}{pipe:^4}{sum(stat.values()):^12}{pipe}')
-print(f'{plus}{plus:-^28}{plus}')
+        print(f'{plus}{plus:-^28}{plus}')
+        print(f'{pipe}{letter:^12}{pipe:^4}{hertz:^12}{pipe}')
+        print(f'{plus}{plus:-^28}{plus}')
+
+        sorted_hertz = sorted(self.stat.items(), key=lambda x: x[1], reverse=True)
+        for char, count in sorted_hertz:
+            print(f'{pipe}{char:^12}{pipe:^4}{count:^12}{pipe}')
+
+        print(f'{plus}{plus:-^28}{plus}')
+        print(f'{pipe}{total:^12}{pipe:^4}{sum(self.stat.values()):^12}{pipe}')
+        print(f'{plus}{plus:-^28}{plus}')
+
+
+stat_voyna = Statistic(file_name='voyna-i-mir.txt')
+stat_voyna.stat_collection()
+stat_voyna.stat_print()
 
 # После выполнения первого этапа нужно сделать упорядочивание статистики
 #  - по частоте по возрастанию
