@@ -22,6 +22,7 @@ import random
 class IamGodError(Exception):
     pass
 
+
 class DrunkError(Exception):
     pass
 
@@ -51,21 +52,19 @@ exception = [IamGodError('Я сегодня БОГ'), DrunkError('Я сегод�
 
 def one_day():
     res = random.randint(1, 7)
-    dice = random.random()
-    error = None
-    if round(dice, 2) <= round(1/13, 2):
-        error = random.choices(exception, k=1)
-        # try:
-        #     raise random.choices(exception, k=1)[0]
-        # except random.choices(exception, k=1)[0] as exc:
-        #     print(f'Поймали исключение {exc}')
-    return res, error
+    if 13 == random.randint(1, 13):
+        with open('out.txt', 'a', encoding='utf8') as file:
+            try:
+                raise Exception(random.choice(exception))
+            except Exception as exc:
+                print(f'Поймали исключение {exc}, {exc.args}')
+                print(f'Поймали исключение {exc}, {exc.args}', file=file)
+    return res
 
 
 while carma_lvl < ENLIGHTENMENT_CARMA_LEVEL:
-    carma_lvl += one_day()[0]
-    print(carma_lvl, one_day()[1])
+    carma_lvl += one_day()
+    print(carma_lvl)
 
-# print(random.choices(exception, k=1)[0])
 
 # https://goo.gl/JnsDqu
