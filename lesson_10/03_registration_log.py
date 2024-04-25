@@ -30,37 +30,63 @@ class NotEmailError(Exception):
     pass
 
 
-with open('registrations.txt', 'r', encoding='utf8') as file:
+class RegistrationLog:
+
+    def __init__(self, file_line):
+        self.line = file_line
+        self.line_split = None
+
+    def check_line(self):
+        self.line_split = self.line.split()
+        if len(self.line.split()) == 3:
+            print(f'В строке есть три поля: {self.line}')
+            self._check_name()
+        else:
+            with open('registrations_bad.log', 'a', encoding='utf8') as bad:
+                bad.write(self.line + '\n')
+            raise ValueError(f'НЕ присутствуют все три поля: {self.line}')
+
+    def _check_name(self):
+        if self.line_split[0].isalpha():
+            print(f'Поле имени содержит только буквы: {self.line_split[0]}')
+            self._check_email()
+        else:
+            with open('registrations_bad.log', 'a', encoding='utf8') as bad:
+                bad.write(self.line + '\n')
+            raise NotNameError(f'Поле имени содержит НЕ только буквы: {self.line_split[0]}')
+
+    def _check_email(self):
+        if '@' in self.line_split[1] and '.' in self.line_split[1]:
+            print(f'Поле емейл содержит "@" и ".": {self.line_split[1]}')
+            self._check_age()
+        else:
+            with open('registrations_bad.log', 'a', encoding='utf8') as bad:
+                bad.write(self.line + '\n')
+            raise NotEmailError(f'Поле емейл не содержит одно из "@", ",": {self.line_split[1]}')
+
+    def _check_age(self):
+        if 10 <= int(self.line_split[2]) <= 99:
+            print(f'Поле возраст является числом от 10 до 99: {self.line_split[2]}')
+            with open('registrations_good.log', 'a', encoding='utf8') as good:
+                good.write(self.line + '\n')
+        else:
+            with open('registrations_bad.log', 'a', encoding='utf8') as bad:
+                bad.write(self.line + '\n')
+            raise ValueError(f'Поле возраст НЕ является числом от 10 до 99: {self.line_split[2]}')
+
+
+with open(file='registrations.txt', mode='r', encoding='utf8') as file:
     for line in file:
-        line_split = line.split()
+        reg_log = RegistrationLog(file_line=line[:-1])
         try:
-            if len(line_split) == 3:
-                print(f'Строка соответствует требованиям: {line_split}')
-            else:
-                raise ValueError(f'Строка не соответствует требованиям: {line_split}')
-
-            if line_split[0].isalpha():
-                print(f'Имя состоит только из букв: {line_split[0]}')
-            else:
-                # print(f'Имя содержит не только буквы: {line_split[0]}')
-                raise NotNameError(f'Имя содержит не только буквы: {line_split[0]}')
-
-            if '@' and '.' in line_split[1]:
-                print(f'Емейл удовлетворяет требованиям: {line_split[1]}')
-            else:
-                # print(f'Емейл не содержит один из символов: "@", ".": {line_split[1]}')
-                raise NotEmailError(f'Емейл не содержит один из символов: "@", ".": {line_split[1]}')
-
-            if 10 <= int(line_split[2]) <= 99:
-                print(f'Возраст в пределах 10-99: {line_split[2]}')
-            else:
-                raise ValueError(f'Возраст не в пределах 10-99: {line_split[2]}')
-
+            reg_log.check_line()
         except NotNameError as exc:
             print(f'Ошибка имени: {exc}')
         except NotEmailError as exc:
             print(f'Ошибка емайла: {exc}')
         except ValueError as exc:
-            print(f'Ошибка длины строки: {exc}')
-        except ValueError(f'Возраст не в пределах 10-99: {line_split[2]}') as exc:
-            print(f'Ошибка возраста: {exc}')
+            if 'три' in exc.args[0]:
+                print(f'Ошибка длины строки: {exc} {exc.args}')
+            else:
+                print(f'Ошибка возраста: {exc}')
+        print('==========================================')
