@@ -14,8 +14,20 @@ import simple_draw as sd
 
 
 def get_polygon(n):
-    pass
-    # TODO здесь ваш код
+    def draw(point, angle, length):
+        for _ in range(n):
+            v = sd.get_vector(start_point=point, angle=angle, length=length)
+            v.draw()
+            point = v.end_point
+            if n == 3:
+                angle += 120
+            elif n == 4:
+                angle += 90
+            elif n == 5:
+                angle += 72
+            else:
+                angle += 60
+    return draw
 
 
 draw_triangle = get_polygon(n=3)
