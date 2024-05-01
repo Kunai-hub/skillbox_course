@@ -9,8 +9,22 @@
 
 
 def log_errors(func):
-    pass
-    # TODO здесь ваш код
+    def surrogate(*args, **kwargs):
+        try:
+             return func(*args, **kwargs)
+        except ZeroDivisionError as z_error:
+            file_cont = f'<{func.__name__}> <{kwargs}> <{Exception}> <{z_error}\n>'
+            with open('function_errors.log', 'a', encoding='utf8') as file:
+                file.write(file_cont)
+            raise ZeroDivisionError
+
+        except ValueError as v_error:
+            file_cont_2 = f'<{func.__name__}> <{kwargs}> <{Exception}> <{v_error}\n>'
+            with open('function_errors.log', 'a', encoding='utf8') as file:
+                file.write(file_cont_2)
+            raise ValueError
+
+    return surrogate
 
 
 # Проверить работу на следующих функциях
