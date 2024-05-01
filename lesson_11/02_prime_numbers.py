@@ -53,20 +53,25 @@ def get_prime_numbers(n):
 #     print(number)
 
 
-# TODO после подтверждения части 1 преподователем, можно делать
 # Часть 2
 # Теперь нужно создать генератор, который выдает последовательность простых чисел до n
 # Распечатать все простые числа до 10000 в столбик
 
 
-# def prime_numbers_generator(n):
-#     pass
-#     # TODO здесь ваш код
-#
-#
-# for number in prime_numbers_generator(n=10000):
-#     print(number)
+def prime_numbers_generator(n):
+    prime_numbers = []
+    for num in range(2, n+1):
+        for prime in prime_numbers:
+            if num % prime == 0:
+                break
+        else:
+            prime_numbers.append(num)
+            yield num
 
+
+for number in prime_numbers_generator(n=10000):
+    print(number)
+print(5 in prime_numbers_generator(n=10000))
 
 # Часть 3
 # Написать несколько функций-фильтров, которые выдает True, если число:
