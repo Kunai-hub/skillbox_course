@@ -20,24 +20,25 @@ from pprint import pprint
 # Входные параметры: файл для анализа, файл результата
 # Требования к коду: он должен быть готовым к расширению функциональности. Делать сразу на классах.
 
-total = 1
+from collections import defaultdict
+import re
 
+file_name = 'events.txt'
+pattern_datetime = re.compile('\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}).+\]')
+date_by_counter = defaultdict(int)
 
-with open(file='events.txt', mode='r') as file:
+with open(file_name) as file:
     for line in file:
-        norm_line = line[:17] + ']'
-        nok = line[-4]
-        if nok == 'N':
-            print(norm_line + ' ' + str(total))
-            total += 1
-            # for minute in range(10):
-            #     if str(minute) == norm_line[-2]:
-            #         print(norm_line)
-            #     else:
-            #         pass
-        else:
-            pass
+        if 'NOK' not in line:
+            continue
 
+        match = pattern_datetime.search(line)
+        if match:
+            date_str = match.group(1)
+            date_by_counter[date_str] += 1
+
+for k, v in date_by_counter.items():
+    print(f'[{k}] {v}')
 
 # После выполнения первого этапа нужно сделать группировку событий
 #  - по часам
