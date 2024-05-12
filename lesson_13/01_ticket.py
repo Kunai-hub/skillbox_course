@@ -10,7 +10,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageColor
 
 
 def make_ticket(fio, from_, to, date):
-    im = Image.open(r'C:\Users\neni2\PycharmProjects\Kirill\kunai\lesson_13\images\ticket_template.png')
+    im = Image.open(r'C:\Users\neni2\PycharmProjects\Kirill\skillbox_course\lesson_13\images\ticket_template.png')
 
     draw = ImageDraw.Draw(im=im)
     font = ImageFont.truetype('ofont.ru_Nunito.ttf', size=15)
