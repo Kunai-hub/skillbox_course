@@ -20,10 +20,25 @@ paper_x, paper_y = 8, 9
 # paper_x, paper_y = 9, 11
 # (просто раскоментировать нужную строку и проверить свой код)
 
-if envelop_x and envelop_y > paper_x and paper_y:
-    print('Да')
+if envelop_x >= paper_x:
+    if envelop_y >= paper_y:
+        print('Да')
+    else:
+        if envelop_x >= paper_y:
+            if envelop_y >= paper_x:
+                print('Да')
+            else:
+                print('Нет')
+        else:
+            print('Нет')
 else:
-    print('Нет')
+    if envelop_y >= paper_x:
+        if envelop_x >= paper_y:
+            print('Да')
+        else:
+            print('Нет')
+    else:
+        print('Нет')
 
 # Усложненное задание, решать по желанию.
 # Заданы размеры hole_x, hole_y прямоугольного отверстия и размеры brick_х, brick_у, brick_z кирпича (все размеры
@@ -52,13 +67,13 @@ brick_x, brick_y, brick_z = 11, 10, 2
 # brick_x, brick_y, brick_z = 3, 11, 6
 # (просто раскоментировать нужную строку и проверить свой код)
 
-if hole_x > brick_x:
-    if hole_y > brick_y or brick_z:
+if hole_x >= brick_x:
+    if hole_y >= brick_y or brick_z:
         print('Да')
     else:
         print('Нет')
-elif hole_y > brick_y:
-    if hole_x > brick_z:
+elif hole_y >= brick_y:
+    if hole_x >= brick_z:
         print('Да')
     else:
         print('Нет')

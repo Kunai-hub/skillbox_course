@@ -12,10 +12,27 @@
 educational_grant, expenses = 10000, 12000
 full_expenses = 12000
 
-while educational_grant < expenses:
-    for _ in range(2, 11):
-        expenses += expenses * 0.03
-        full_expenses += expenses
-    educational_grant = educational_grant * 10
-    result = round(full_expenses - educational_grant, 2)
-print(f'Студенту надо попросить {result} рублей')
+# for _ in range(1, 10):
+#     expenses += expenses * 0.03
+#     full_expenses += expenses
+# educational_grant = educational_grant * 10
+# result = round(full_expenses - educational_grant, 2)
+# print(f'Студенту надо попросить {result} рублей')
+
+i = 0
+student_income = educational_grant
+months_expenses = 0
+money_needs = 0
+
+while i < 10:
+
+    if i == 0:
+        months_expenses = expenses
+    elif i >= 1:
+        months_expenses *= 1.03
+    i += 1
+    diference = round(months_expenses-student_income, 2)
+    money_needs += diference
+    print('Расходы в', i, 'месяце:', diference, ', Итого за', i, 'мес.:', round(money_needs,2))
+
+print('Студенту надо попросить', money_needs, 'рублей')

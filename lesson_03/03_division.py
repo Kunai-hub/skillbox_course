@@ -10,8 +10,18 @@
 
 a, b = 179, 37
 
-while a % b != 0:
-    result = a / b
-    a -= 1
-    res_1 = a / b
-print(f'Целочисленное деление {a} на {b} дает {res_1}')
+# i = a
+# while i % b != 0:
+#     result = a / b
+#     i -= 1
+#     res_1 = i / b
+# print(f'Целочисленное деление {a} на {b} дает {res_1}')
+
+i = a
+int_div = 0
+while i >= 0:
+    i -= b
+    if i > 0:
+        int_div += 1
+
+print('Целочисленное деление', a, 'на', b, 'дает', int_div)
