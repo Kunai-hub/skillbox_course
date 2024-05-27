@@ -24,21 +24,17 @@ point1 = (23, 34)
 #       формула так же есть в интернете
 #       квадратный корень - это возведение в степень 0.5
 #       операции сравнения дают булевы константы True и False
-point_1 = (point1[0] ** 2 + point1[1] ** 2) ** 0.5
-if point_1 < radius:
-    print(True)
-else:
-    print(False)
+point_1 = round((point1[0] ** 2 + point1[1] ** 2) ** 0.5, 4)
+
+print(point_1 <= radius)
 
 # Аналогично для другой точки
 point2 = (30, 30)
 # Если точка point_2 лежит внутри круга (radius = 42), то выведите на консоль True,
 # Или False, если точка лежит вовне круга.
-point_2 = (point2[0] ** 2 + point2[1] ** 2) ** 0.5
-if point_1 < radius:
-    print(True)
-else:
-    print(False)
+point_2 = round((point2[0] ** 2 + point2[1] ** 2) ** 0.5, 4)
+
+print(point_2 <= radius)
 
 # Пример вывода на консоль:
 #
