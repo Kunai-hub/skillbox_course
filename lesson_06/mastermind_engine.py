@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 from random import sample
 
 _bulls_cows = {}
+
 
 def guess_number():
     _digits = list('0123456789')
@@ -9,6 +11,7 @@ def guess_number():
     global _number
     _number = ''.join(_first_digit + sample(_digits, 3))
     return _number
+
 
 def check_number(user_number):
     count_bulls = 0
