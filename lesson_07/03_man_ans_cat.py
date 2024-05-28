@@ -25,6 +25,7 @@ from random import randint
 
 # Человеку и коту надо вместе прожить 365 дней.
 
+
 class Man:
 
     def __init__(self, name):
