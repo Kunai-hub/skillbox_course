@@ -45,13 +45,15 @@ class SuicideError(Exception):
 
 ENLIGHTENMENT_CARMA_LEVEL = 777
 carma_lvl = 0
-exception = [IamGodError('Я сегодня БОГ'), DrunkError('Я сегодня НАПИЛСЯ'),
-             CarCrashError('Я сегодня разбился на ТАЧКЕ'), GluttonyError('Я сегодня ОБОЖРАЛСЯ'),
-             DepressionError('Я сегодня в ДЕПРЕССИИ'), SuicideError('Я сегодня СУИСАЙД')]
 
 
 def one_day():
+    exception = [IamGodError('Я сегодня БОГ'), DrunkError('Я сегодня НАПИЛСЯ'),
+                 CarCrashError('Я сегодня разбился на ТАЧКЕ'), GluttonyError('Я сегодня ОБОЖРАЛСЯ'),
+                 DepressionError('Я сегодня в ДЕПРЕССИИ'), SuicideError('Я сегодня СУИСАЙД')]
+
     res = random.randint(1, 7)
+
     if 13 == random.randint(1, 13):
         with open('out.txt', 'a', encoding='utf8') as file:
             try:
