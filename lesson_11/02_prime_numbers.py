@@ -14,6 +14,7 @@ def get_prime_numbers(n):
             prime_numbers.append(number)
     return prime_numbers
 
+
 # Часть 1
 # На основе алгоритма get_prime_numbers создать класс итерируемых обьектов,
 # который выдает последовательность простых чисел до n
@@ -21,36 +22,36 @@ def get_prime_numbers(n):
 # Распечатать все простые числа до 10000 в столбик
 
 
-# class PrimeNumbers:
-#
-#     def __init__(self, n):
-#         self.i = 0
-#         self.prime_numbers = []
-#         self.n = n
-#
-#     def __iter__(self):
-#         self.i = 1
-#         return self
-#
-#     def get_prime_numbers(self):
-#         self.i += 1
-#         for prime in self.prime_numbers:
-#             if self.i % prime == 0:
-#                 return False
-#         return True
-#
-#     def __next__(self):
-#         if self.i < self.n:
-#             if self.get_prime_numbers():
-#                 self.prime_numbers.append(self.i)
-#                 return self.i
-#         else:
-#             raise StopIteration()
-#
-#
-# prime_number_iterator = PrimeNumbers(n=10000)
-# for number in prime_number_iterator:
-#     print(number)
+class PrimeNumbers:
+
+    def __init__(self, n):
+        self.prime_numbers = []
+        self.i = 1
+        self.n = n
+
+    def __iter__(self):
+        self.i = 1
+        self.prime_numbers = []
+        return self
+
+
+    def __next__(self):
+        self.i += 1
+        for number in range(self.i, self.n + 1):
+            for prime in self.prime_numbers:
+                if number % prime == 0:
+                    break
+            else:
+                self.i = number
+                self.prime_numbers.append(self.i)
+                return self.i
+
+        raise StopIteration()
+
+
+prime_number_iterator = PrimeNumbers(n=10000)
+for number in prime_number_iterator:
+    print(number)
 
 
 # Часть 2
@@ -73,6 +74,7 @@ for number in prime_numbers_generator(n=10000):
     print(number)
 print(5 in prime_numbers_generator(n=10000))
 
+
 # Часть 3
 # Написать несколько функций-фильтров, которые выдает True, если число:
 # 1) "счастливое" в обыденном пониманиии - сумма первых цифр равна сумме последних
@@ -88,3 +90,24 @@ print(5 in prime_numbers_generator(n=10000))
 # простых счастливых палиндромных чисел и так далее. Придумать не менее 2х способов.
 #
 # Подсказка: возможно, нужно будет добавить параметр в итератор/генератор.
+
+
+def lucky_prime_numbers_generator(n):
+
+    for number in prime_numbers_generator(n):
+        lucky_nmb_len = len(str(number))
+        cnt = (lucky_nmb_len-1) // 2 if lucky_nmb_len % 2 != 0 else lucky_nmb_len // 2
+
+        if cnt:
+            left_path, right_path = str(number)[:cnt], str(number)[-cnt:]
+
+            left_nmb_sum = sum([int(num) for num in left_path])
+            right_nmb_sum = sum([int(num) for num in right_path])
+
+            if left_nmb_sum == right_nmb_sum:
+                yield number, left_path, right_path
+
+
+number_generator = lucky_prime_numbers_generator(n=100000)
+for number, l_path, r_path in number_generator:
+    print(f'{number}')
