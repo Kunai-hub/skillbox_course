@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from PIL import Image, ImageDraw, ImageFont, ImageColor
+import argparse
 
 # Заполнить все поля в билете на самолет.
 # Создать функцию, принимающую параметры: ФИО, откуда, куда, дата вылета,
@@ -23,15 +24,15 @@ def make_ticket(fio, from_, to, date):
     im.show()
 
 
-fio = input('Введите ФИО: ')
-from_ = input('Откуда отправляетесь: ')
-to = input('Куда отправляетесь: ')
-date = input('Дата отправки: ')
+# fio = input('Введите ФИО: ')
+# from_ = input('Откуда отправляетесь: ')
+# to = input('Куда отправляетесь: ')
+# date = input('Дата отправки: ')
 
-make_ticket(fio=fio,
-            from_=from_,
-            to=to,
-            date=date)
+# make_ticket(fio=fio,
+#             from_=from_,
+#             to=to,
+#             date=date)
 
 # Усложненное задание (делать по желанию).
 # Написать консольный скрипт c помощью встроенного python-модуля agrparse.
@@ -42,3 +43,20 @@ make_ticket(fio=fio,
 #   --date - обязательный, когда летим.
 #   --save_to - необязательный, путь для сохранения заполненнего билета.
 # и заполнять билет.
+
+if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser(description='Вывод билетика.',
+                                     add_help=True)
+
+    parser.add_argument('fio', type=str, help='ФИО')
+    parser.add_argument('from_', type=str, help='Откуда')
+    parser.add_argument('to_', type=str, help='Куда')
+    parser.add_argument('date', type=str, help='Дата')
+
+    args = parser.parse_args()
+
+    make_ticket(fio=args.fio,
+                from_=args.from_,
+                to=args.to_,
+                date=args.date)
