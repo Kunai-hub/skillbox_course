@@ -99,17 +99,17 @@ class RpgGame:
                 self.travel_location.append((index, names))
 
     def printing(self):
-        print(f'Вы находитесь в локации {self.location_name[0]}'
-              f'У вас {self.exp} опыта и осталось {datetime.timedelta(seconds=float(self.remaining_time))} секунд'
-              f'Прошло времени: {datetime.timedelta(seconds=float(self.time))}'
+        print(f'Вы находитесь в локации {self.location_name[0]}\n'
+              f'У вас {self.exp} опыта и осталось {datetime.timedelta(seconds=float(self.remaining_time))}\n'
+              f'Прошло времени: {datetime.timedelta(seconds=float(self.time))}\n'
               f'Внутри вы видите: ')
         for mob in self.mobs:
             print(f'Монстра -- {mob[1]}')
         for lok in self.travel_location:
-            print(f'Вход в локацию: {lok[1]}')
-        print('Выберите действие'
-              '1. Атаковать монстра'
-              '2. Перейти в другую локацию'
+            print(f'Вход в локацию -- {lok[1]}')
+        print('Выберите действие:\n'
+              '1. Атаковать монстра\n'
+              '2. Перейти в другую локацию\n'
               '3. Сдаться и выйти из игры')
 
     def user_input(self):
@@ -132,10 +132,10 @@ class RpgGame:
                         continue
                     else:
                         select_mobs = self.mobs[int(select) - 1]
-                        count_exp = re.findall(self.exp_re, select_mobs[1])
-                        self.exp += Decimal(str(count_exp[0]))
-                        count_time = re.findall((self.tm_re, select_mobs[1]))
-                        self.time += int(count_time[0])
+                        count_exp = re.search(self.exp_re, select_mobs[1])
+                        self.exp += Decimal(count_exp[1])
+                        count_time = re.search(self.tm_re, select_mobs[1])
+                        self.time += Decimal(count_time[1])
             elif choice == '2':
                 if not self.travel_location:
                     if self.mobs:
@@ -146,7 +146,10 @@ class RpgGame:
                     for count, locations in enumerate(self.travel_location):
                         print(f'{count + 1}: {locations[1]}')
                     choice_location = input('В какую локацию выдвигаемся?: ')
-                    if int(choice_location) > len(self.travel_location):
+                    if choice_location.isalpha():
+                        print('Вводить необходимо цифры!')
+                        continue
+                    elif int(choice_location) > len(self.travel_location):
                         print('Не правильно введено число!')
                         continue
                     elif 'Hatch' in self.travel_location[0][1]:
@@ -155,10 +158,39 @@ class RpgGame:
                         else:
                             return print('You are Winner!!!')
                     else:
+                        your_choice = self.travel_location[int(choice_location) - 1]
+                        count_lok_tm = re.search(self.tm_re, your_choice[1])
+                        self.time += Decimal(count_lok_tm[1])
+                        self.location_object = self.location_object[your_choice[0]][your_choice[1]]
+                        self.mobs.clear()
+                        self.travel_location.clear()
+                        self.create_location()
+                        self.location_name.append(your_choice[1])
+                        self.location_name.pop(0)
+                        self.save_result()
+                        self.result_game.clear()
+            elif choice == '3':
+                return print('Беги, глупец!')
+            elif not choice.isdigit() or not choice.isalpha():
+                print('Что ты вводишь? Цифры, пожалуйста!')
 
+    def run(self):
+        self.create_file()
+        self.open_maps()
+        self.create_location()
+        while True:
+            self.user_input()
+            game_of_white_thrones = input('Если ты хочешь продолжить, введи - "yes",\n'
+                                          'если ты хочешь выйти, введи - "q": ')
+            if game_of_white_thrones == 'yes':
+                continue
+            elif game_of_white_thrones == 'q':
+                print('Game over')
+                break
 
-
-
+if __name__ == '__main__':
+    game = RpgGame()
+    game.run()
 
 # Учитывая время и опыт, не забывайте о точности вычислений!
 
